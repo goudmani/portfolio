@@ -3,39 +3,33 @@ import { motion } from "framer-motion";
 const skillCategories = [
   {
     title: "Languages",
-    skills: [
-      { name: "Python", level: 95 },
-      { name: "R", level: 80 },
-      { name: "SQL", level: 90 },
-      { name: "Julia", level: 60 },
-    ],
+    icon: "⟨/⟩",
+    skills: ["Python", "R", "SQL", "Julia", "Bash"],
   },
   {
-    title: "ML / DL",
-    skills: [
-      { name: "PyTorch", level: 90 },
-      { name: "TensorFlow", level: 85 },
-      { name: "Scikit-learn", level: 95 },
-      { name: "Hugging Face", level: 80 },
-    ],
+    title: "ML / Deep Learning",
+    icon: "🧠",
+    skills: ["PyTorch", "TensorFlow", "Scikit-learn", "Hugging Face", "XGBoost"],
   },
   {
-    title: "Data & Cloud",
-    skills: [
-      { name: "Spark", level: 85 },
-      { name: "AWS", level: 80 },
-      { name: "Docker", level: 85 },
-      { name: "Airflow", level: 75 },
-    ],
+    title: "Databases",
+    icon: "🗄️",
+    skills: ["PostgreSQL", "MongoDB", "Redis", "Elasticsearch", "BigQuery"],
+  },
+  {
+    title: "Cloud & DevOps",
+    icon: "☁️",
+    skills: ["AWS", "GCP", "Docker", "Kubernetes", "Airflow"],
+  },
+  {
+    title: "Data Engineering",
+    icon: "⚙️",
+    skills: ["Spark", "Kafka", "dbt", "Pandas", "Polars"],
   },
   {
     title: "Visualization",
-    skills: [
-      { name: "Matplotlib", level: 90 },
-      { name: "Plotly", level: 85 },
-      { name: "Tableau", level: 75 },
-      { name: "D3.js", level: 65 },
-    ],
+    icon: "📊",
+    skills: ["Matplotlib", "Plotly", "Tableau", "D3.js", "Streamlit"],
   },
 ];
 
@@ -57,34 +51,32 @@ const Skills = () => {
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {skillCategories.map((cat, ci) => (
             <motion.div
               key={cat.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: ci * 0.1 }}
-              className="p-6 rounded-2xl border border-border bg-card/30"
+              transition={{ duration: 0.5, delay: ci * 0.08 }}
+              className="group p-6 rounded-2xl border border-border bg-card/30 hover:border-primary/30 hover:bg-card/50 transition-all duration-300"
             >
-              <h3 className="font-mono text-sm text-primary mb-6 tracking-wider">{cat.title}</h3>
-              <div className="space-y-5">
+              <div className="flex items-center gap-3 mb-5">
+                <span className="text-2xl">{cat.icon}</span>
+                <h3 className="font-mono text-sm text-primary tracking-wider">{cat.title}</h3>
+              </div>
+              <div className="flex flex-wrap gap-2">
                 {cat.skills.map((skill, si) => (
-                  <div key={skill.name}>
-                    <div className="flex justify-between mb-2">
-                      <span className="text-sm font-medium">{skill.name}</span>
-                      <span className="text-xs text-muted-foreground font-mono">{skill.level}%</span>
-                    </div>
-                    <div className="h-1.5 rounded-full bg-secondary overflow-hidden">
-                      <motion.div
-                        className="h-full rounded-full bg-gradient-to-r from-primary to-accent"
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1, delay: ci * 0.1 + si * 0.1, ease: "easeOut" }}
-                      />
-                    </div>
-                  </div>
+                  <motion.span
+                    key={skill}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: ci * 0.08 + si * 0.05 }}
+                    className="px-3 py-1.5 text-sm rounded-lg bg-secondary/80 text-foreground border border-border hover:border-primary/40 hover:bg-primary/10 transition-colors duration-200 cursor-default"
+                  >
+                    {skill}
+                  </motion.span>
                 ))}
               </div>
             </motion.div>
